@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Variables</title>
+  </head>
+  <body>
+    <p>
+      Press this
+      <button class="button_1" onclick="increaseVariable()">Button</button>
+    </p>
+    <p id="variable-display">3</p>
+    <p id="info-display">Keep going...</p>
+
+    <script>
+      let variable_1 = 3;
+
+      function increaseVariable() {
+        variable_1 += 1;
+        document.getElementById("variable-display").textContent = variable_1;
+        console.log(`Variable count ${variable_1}`);
+        ifReaches10(); // Check if variable_1 is 10
+      }
+
+      function ifReaches10() {
+        if (variable_1 === 10) {
+          document.getElementById("info-display").textContent =
+            "Good job, it's 10!";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fintara</title>
+    <style>
+      /* Reset some default styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        background-color: #6e7e93; /* Light mid-tone background */
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Navigation Ribbon */
+      .navbar {
+        width: 100%;
+        background-color: #0b1f45; /* Mid-tone blue */
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar .logo {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .navbar .buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .navbar .buttons button {
+        padding: 8px 16px;
+        font-size: 16px;
+        border: none;
+        border-radius: 20px; /* Rounded buttons */
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .navbar .buttons .login {
+        background-color: #ffffff;
+        color: #0b1f45;
+      }
+
+      .navbar .buttons .login:hover {
+        background-color: #e6e6e6;
+      }
+
+      .navbar .buttons .signup {
+        background-color: #ffffff;
+        color: #0b1f45;
+      }
+
+      .navbar .buttons .signup:hover {
+        background-color: #e6e6e6;
+      }
+
+      /* Centered Input Container */
+      .autocomplete {
+        position: relative;
+        display: inline-block;
+        width: 400px;
+        margin: auto;
+        margin-top: 150px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .autocomplete-items {
+        position: absolute;
+        border: 1px solid #ccc;
+        border-top: none;
+        z-index: 99;
+        top: 100%;
+        left: 0;
+        right: 0;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: #ffffff;
+      }
+
+      .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .autocomplete-items div:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 600px) {
+        .navbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .navbar .buttons {
+          margin-top: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Ribbon -->
+    <div class="navbar">
+      <a href="#" class="logo">Fintara</a>
+      <div class="buttons">
+        <button class="login">Login</button>
+        <button class="signup">Signup</button>
+      </div>
+    </div>
+
+    <!-- Centered Input for Stock Names -->
+    <div class="autocomplete">
+      <input type="text" id="stockInput" placeholder="Enter a stock name" />
+    </div>
+
+    <script>
+      const stocks = [
+        "SASA",
+        "ASELS",
+        "THYAO",
+        "PGSUS",
+        "AHGAZ",
+        "KCAER",
+        "TUPRS",
+        "PETKM",
+        "EREGL",
+        "AKBNK",
+        "SAHOL",
+        "SOKM",
+        "ZOREN",
+        "MGROS",
+        "BIMAS",
+        "KCHOL",
+        "FROTO",
+        "TOASO",
+        "GARAN",
+        "EGEEN",
+        "IZMDC",
+        "TCELL",
+        "TTKOM",
+      ];
+
+      const input = document.getElementById("stockInput");
+
+      input.addEventListener("input", function () {
+        const val = this.value.trim();
+        closeAllLists(); // Close previous autocomplete suggestions
+        if (!val) return;
+
+        const listContainer = document.createElement("div");
+        listContainer.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(listContainer);
+
+        // Filter stocks that start with the entered value (case-insensitive)
+        const filteredStocks = stocks.filter((stock) =>
+          stock.toLowerCase().startsWith(val.toLowerCase())
+        );
+
+        filteredStocks.forEach((stock) => {
+          const listItem = document.createElement("div");
+          listItem.innerHTML = `<strong>${stock.substr(
+            0,
+            val.length
+          )}</strong>${stock.substr(val.length)}`;
+          listItem.addEventListener("click", function () {
+            input.value = stock;
+            closeAllLists();
+          });
+          listContainer.appendChild(listItem);
+        });
+      });
+
+      function closeAllLists() {
+        const items = document.getElementsByClassName("autocomplete-items");
+        for (let i = 0; i < items.length; i++) {
+          items[i].parentNode.removeChild(items[i]);
+        }
+      }
+
+      document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+      });
+    </script>
+  </body>
+</html>

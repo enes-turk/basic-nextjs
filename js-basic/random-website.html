@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Variables</title>
+  </head>
+  <body>
+    <div>
+      <button class="button_1" onclick="checkNumber()">Button</button>
+    </div>
+    <label for="input_1">Input a number between 1-10:</label>
+    <input id="input_1" type="number" min="1" max="10" />
+
+    <script>
+      // Generates a random integer between 1 and 10
+      const randomNumber = Math.floor(Math.random() * 10) + 1;
+      console.log(`Random number is: ${randomNumber}`);
+
+      function checkNumber() {
+        const userInput = parseInt(
+          document.getElementById("input_1").value,
+          10
+        );
+
+        if (userInput === randomNumber) {
+          console.log("True");
+        } else {
+          console.log("False");
+        }
+      }
+    </script>
+  </body>
+</html>
