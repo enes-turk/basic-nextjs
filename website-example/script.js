@@ -1,5 +1,3 @@
-// stock market listed names will be also added for search like,
-// when you tell "tüpraş" it will understand that it is TUPRS
 const stocks = [
   "SASA",
   "ASELS",
@@ -26,6 +24,23 @@ const stocks = [
   "TTKOM",
 ];
 
+// Stock information with P/E, Revenue, and EBITDA
+const stockInfo = {
+  SASA: { peRatio: 4.2, revenue: 1.8, ebitda: 0.9 },
+  TUPRS: { peRatio: 1.6, revenue: 2.2, ebitda: 0.7 },
+};
+
+// Function to generate random values for the rest of the stocks
+stocks.forEach((stock) => {
+  if (!stockInfo[stock]) {
+    stockInfo[stock] = {
+      peRatio: (Math.random() * (25 - 1) + 1).toFixed(2), // Random P/E between 1 and 25
+      revenue: (Math.random() * (5 - 0.5) + 0.5).toFixed(2), // Random revenue between 0.5 and 5
+      ebitda: (Math.random() * (3 - 0.1) + 0.1).toFixed(2), // Random EBITDA between 0.1 and 3
+    };
+  }
+});
+
 const input = document.getElementById("stockInput");
 const output = document.getElementById("stockOutput");
 
@@ -51,7 +66,11 @@ input.addEventListener("input", function () {
     )}</strong>${stock.substr(val.length)}`;
     listItem.addEventListener("click", function () {
       input.value = stock;
-      output.innerHTML = `You Selected: ${stock}`;
+      const stockDetails = stockInfo[stock]; // Get the stock info for the selected stock
+      output.innerHTML = `You Selected: ${stock} <br>
+                          P/E Ratio: ${stockDetails.peRatio} <br>
+                          Revenue: ${stockDetails.revenue} billion USD <br>
+                          EBITDA: ${stockDetails.ebitda} billion USD`;
       output.style.display = "flex";
       closeAllLists();
     });
