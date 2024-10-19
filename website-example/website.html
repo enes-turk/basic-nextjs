@@ -1,4 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head> </head>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fintara</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation Ribbon -->
+    <div class="navbar">
+      <a href="#" class="logo">Fintara</a>
+      <div class="buttons">
+        <button class="login">Login</button>
+        <button class="signup">Signup</button>
+      </div>
+    </div>
+
+    <!-- Centered Input for Stock Names -->
+    <div class="autocomplete">
+      <input type="text" id="stockInput" placeholder="Enter a stock name" />
+    </div>
+
+    <!-- Hidden Output Section for displaying selected stock -->
+    <div id="stockOutput" class="output">Selected stock will appear here</div>
+
+    <script src="script.js"></script>
+  </body>
 </html>

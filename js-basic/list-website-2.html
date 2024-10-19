@@ -111,24 +111,6 @@
         background-color: #f1f1f1;
       }
 
-      .output {
-        margin: 20px auto;
-        padding: 50px;
-        font-size: 18px;
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        display: none; /* Initially hidden */
-
-        /* Flexbox properties */
-        display: hidden;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column; /* if you want content to stack vertically */
-        max-width: 600px; /* optional width constraint */
-      }
-
       /* Responsive Design */
       @media (max-width: 600px) {
         .navbar {
@@ -157,81 +139,6 @@
       <input type="text" id="stockInput" placeholder="Enter a stock name" />
     </div>
 
-    <!-- Hidden Output Section for displaying selected stock -->
-    <div id="stockOutput" class="output">Selected stock will appear here</div>
-
-    <script>
-      // stock market listed names will be also added for search like,
-      // when you tell "tüpraş" it will understand that it is TUPRS
-      const stocks = [
-        "SASA",
-        "ASELS",
-        "THYAO",
-        "PGSUS",
-        "AHGAZ",
-        "KCAER",
-        "TUPRS",
-        "PETKM",
-        "EREGL",
-        "AKBNK",
-        "SAHOL",
-        "SOKM",
-        "ZOREN",
-        "MGROS",
-        "BIMAS",
-        "KCHOL",
-        "FROTO",
-        "TOASO",
-        "GARAN",
-        "EGEEN",
-        "IZMDC",
-        "TCELL",
-        "TTKOM",
-      ];
-
-      const input = document.getElementById("stockInput");
-      const output = document.getElementById("stockOutput");
-
-      input.addEventListener("input", function () {
-        const val = this.value.trim();
-        closeAllLists(); // Close previous autocomplete suggestions
-        if (!val) return;
-
-        const listContainer = document.createElement("div");
-        listContainer.setAttribute("class", "autocomplete-items");
-        this.parentNode.appendChild(listContainer);
-
-        // Filter stocks that start with the entered value (case-insensitive)
-        const filteredStocks = stocks.filter((stock) =>
-          stock.toLowerCase().startsWith(val.toLowerCase())
-        );
-
-        filteredStocks.forEach((stock) => {
-          const listItem = document.createElement("div");
-          listItem.innerHTML = `<strong>${stock.substr(
-            0,
-            val.length
-          )}</strong>${stock.substr(val.length)}`;
-          listItem.addEventListener("click", function () {
-            input.value = stock;
-            output.innerHTML = `You Selected: ${stock}`;
-            output.style.display = "flex";
-            closeAllLists();
-          });
-          listContainer.appendChild(listItem);
-        });
-      });
-
-      function closeAllLists() {
-        const items = document.getElementsByClassName("autocomplete-items");
-        for (let i = 0; i < items.length; i++) {
-          items[i].parentNode.removeChild(items[i]);
-        }
-      }
-
-      document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-      });
-    </script>
+    <script src="script-2.js"></script>
   </body>
 </html>
