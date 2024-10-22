@@ -30,7 +30,7 @@ const stockInfo = {
   TUPRS: { peRatio: 1.6, revenue: 2.2, ebitda: 0.7 },
 };
 
-// Function to generate random values for the rest of the stocks
+// Generate random values for the rest of the stocks
 stocks.forEach((stock) => {
   if (!stockInfo[stock]) {
     stockInfo[stock] = {
@@ -44,16 +44,16 @@ stocks.forEach((stock) => {
 const input = document.getElementById("stockInput");
 const output = document.getElementById("stockOutput");
 
-input.addEventListener("input", function () {
-  const val = this.value.trim();
+// Function to create and show the filtered autocomplete list
+function showSuggestions(val) {
   closeAllLists(); // Close previous autocomplete suggestions
   if (!val) return;
 
   const listContainer = document.createElement("div");
   listContainer.setAttribute("class", "autocomplete-items");
-  this.parentNode.appendChild(listContainer);
+  input.parentNode.appendChild(listContainer);
 
-  // Filter stocks that start with the entered value (case-insensitive)
+  // Filter stocks that match the input
   const filteredStocks = stocks.filter((stock) =>
     stock.toLowerCase().startsWith(val.toLowerCase())
   );
@@ -76,8 +76,15 @@ input.addEventListener("input", function () {
     });
     listContainer.appendChild(listItem);
   });
+}
+
+// Event listener for typing in the input field
+input.addEventListener("input", function () {
+  const val = this.value.trim();
+  showSuggestions(val);
 });
 
+// Close all autocomplete lists
 function closeAllLists() {
   const items = document.getElementsByClassName("autocomplete-items");
   for (let i = 0; i < items.length; i++) {
@@ -85,6 +92,11 @@ function closeAllLists() {
   }
 }
 
+// Handle clicks to show the suggestions again when input is clicked
 document.addEventListener("click", function (e) {
-  closeAllLists(e.target);
+  if (e.target === input && input.value.trim()) {
+    showSuggestions(input.value.trim()); // Show suggestions based on current input
+  } else {
+    closeAllLists(); // Close the list if clicked outside
+  }
 });
