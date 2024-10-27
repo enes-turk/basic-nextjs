@@ -8,7 +8,7 @@
 body {
   font-family: Arial, sans-serif;
   height: 100vh;
-  background-color: #6e7e93; /* Light mid-tone background */
+  background-color: #425162; /* Light mid-tone background */
   display: flex;
   flex-direction: column;
 }
@@ -16,7 +16,7 @@ body {
 /* Navigation Ribbon */
 .navbar {
   width: 100%;
-  background-color: #0b1f45; /* Mid-tone blue */
+  background-color: #26395b; /* Mid-tone blue */
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
