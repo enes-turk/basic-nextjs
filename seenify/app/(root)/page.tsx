@@ -1,5 +1,8 @@
 import SearchForm from "@/components/searchForm";
 import StartupCard from "@/components/startupCard";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
+import { client } from "@/sanity/lib/client";
+import { StartupTypeCard } from "@/components/startupCard";
 
 export default async function Home({
   searchParams,
@@ -8,18 +11,21 @@ export default async function Home({
 }) {
   const query = (await searchParams).query;
 
-  const posts = [
-    {
-      _createdAt: new Date(),
-      views: 55,
-      author: { _id: 1, name: "Enes" },
-      _id: 1,
-      description: "This is a description",
-      img: "https://images.unsplash.com/photo-1670282840604-7789834af47c?q=80&w=2500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Robots",
-      title: "We Robots",
-    },
-  ];
+  const posts = await client.fetch(STARTUPS_QUERY);
+
+  console.log(JSON.stringify(posts, null, 2));
+  // const posts = [
+  //   {
+  //     _createdAt: new Date(),
+  //     views: 55,
+  //     author: { _id: 1, name: "Enes" },
+  //     _id: 1,
+  //     description: "This is a description",
+  //     img: "https://images.unsplash.com/photo-1670282840604-7789834af47c?q=80&w=2500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     category: "Robots",
+  //     title: "We Robots",
+  //   },
+  // ];
 
   return (
     <>
@@ -42,7 +48,7 @@ export default async function Home({
 
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post: StartupCardType, index: number) => (
+            posts.map((post: StartupTypeCard, index: number) => (
               <StartupCard key={post?._id} post={post} />
             ))
           ) : (
